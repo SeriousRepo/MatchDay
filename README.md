@@ -33,4 +33,7 @@ $ pip3 install Flask
 ```
 ### Run Aplication
 ```
+export FLASK_APP=app.views
+export FLASK_ENV=development
+flask run
 ```
