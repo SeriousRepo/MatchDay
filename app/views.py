@@ -34,7 +34,7 @@ def get_team_id(team_in_match):
 
 
 @view.route('/')
-def hello():
+def index():
     todays_date = datetime.now().strftime('%d-%m-%Y')
     connector = Connector()
     json_matches = connector.send_get('matches/today/')
@@ -54,3 +54,23 @@ def hello():
         matches_to_display.append(Match(matches[i], home_team, away_team))
 
     return render_template('index.html', date=todays_date, matches=matches_to_display)
+
+
+@view.route('/competitions')
+def competitions():
+    connector = Connector()
+    json_competitions = connector.send_get('competitions/')
+    competitions = json.loads(json_competitions)
+    return render_template('competitions.html', competitions=competitions)
+
+
+@view.route('/competitions/<int:id>')
+def competition(id):
+    connector = Connector()
+    json_competition = connector.send_get('competitions/{}/matches/'.format(id))
+    competition = json.loads(json_competition)
+    json_matches = connector.send_get('competitions/{}/matches/'.format(id))
+    matches = json.loads(json_matches)
+
+
+    return render_template('competition.html', competition=competition)

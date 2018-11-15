@@ -39,38 +39,5 @@
     </div>
 </nav>
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Matchday {{ date }}</h1>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="list-group">
-                {% for match in matches %}
-                <a href="#" class="list-group-item list-group-item-action">
-                    <div class="row">
-                        <div class="col-5 text-right">
-                            {{ match.home_team.info['name'] }}
-                        </div>
-
-                        <div class="col-2 text-center">
-                            {{ match.home_team.team['goals'] }} : {{ match.away_team.team['goals'] }}
-                        </div>
-
-                        <div class="col-5">
-                            {{ match.away_team.info['name'] }}
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
-
-
 </body>
 </html>
