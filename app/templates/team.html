@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+<head>
+    {% block head %}
+    {{ super() }}
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">{{ team['name'] }}</h1>
+    </div>
+</div>
+{% for deck_id in range(0, decks_amount) %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card-deck">
+                {% for card_id in range(0,3) %}
+                {% if (deck_id * 3 + card_id) < players|length%}
+                <div class="card">
+                    <div class="card-header">
+                        <p>{{ players[deck_id * 3 + card_id].name }}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">position: {{ players[deck_id * 3 + card_id].position }}</div>
+                        <div class="card-text">age: {{ players[deck_id * 3 + card_id].age }}</div>
+                        <div class="card-text">nationality: {{ players[deck_id * 3 + card_id].nationality }}</div>
+                        <div class="card-text">shirt number:
+                            {% if players[deck_id * 3 + card_id].shirt_number %}
+                            {{ players[deck_id * 3 + card_id].shirt_number }}
+                            {% else %}
+                            --
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="card" style="visibility:hidden">
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+</body>
