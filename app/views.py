@@ -105,5 +105,4 @@ def competition_match(competition_id, match_id):
         away_team = TeamInMatch(match['teams'][1], team1)
     match_to_display = Match(match, home_team, away_team)
 
-    return render_template('match', match=match_to_display)
-
+    return render_template('match.html', match=match_to_display, competition_id=competition_id)

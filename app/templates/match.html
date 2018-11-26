@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+<head>
+    {% block head %}
+    {{ super() }}
+    {% endblock %}
+</head>
+
+<body>
+{% block navbar_item %}
+<li class="nav-item">
+    <a class="nav-link" href="{{ '/competitions/{}/matches'.format(competition_id) }}">Matches</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h2 class="display-4">Match</h2>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <h5>
+                {{ '{}.{}.{}'.format(match.info['date'][8:10],
+                match.info['date'][5:7], match.info['date'][0:4]) }}
+            </h5>
+        </div>
+        <div class="col-4 text-center">
+            <h5>
+                {{ '{}'.format(match.info['date'][11:16]) }}
+            </h5>
+        </div>
+        <div class="col-4 text-right">
+            <h5>
+                {{ match.info['status'] }}
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <h2>{{ match.home_team.info['name'] }}</h2>
+        </div>
+        <div class="col-2 text-center">
+            <h2>
+                {% if match.info['status'] == 'scheduled' %}
+                <div style="color:red">
+                    - : -
+                </div>
+                {% elif match.info['status'] == 'finished' %}
+                {{ match.home_team.team['goals'] }} : {{ match.away_team.team['goals'] }}
+                {% else %}
+                <div style="color:green">
+                    {{ match.home_team.team['goals'] }} : {{ match.away_team.team['goals'] }}
+                </div>
+                {% endif %}
+            </h2>
+        </div>
+
+        <div class="col-5 text-right">
+            <h2>{{ match.away_team.info['name'] }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small>3 days ago</small>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">List group item heading</h5>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+</body>

@@ -24,17 +24,38 @@
         <div class="col-12">
             <div class="list-group">
                 {% for match in matches %}
-                <a href="{{ '/competitions/{}/matches/{}'.format(competition_id, match.info['id']) }}" class="list-group-item list-group-item-action">
+                {% if loop.index == 1
+                or (matches[loop.index - 2].info['date'][0:10] != matches[loop.index - 1].info['date'][0:10]) %}
+                <div class="list-group-item list-group-item-dark">
                     <div class="row">
-                        <div class="col-5 text-right">
+                        <div class="col-12 text-center">
+                            {{ '{}.{}.{}'.format(match.info['date'][8:10],
+                            match.info['date'][5:7], match.info['date'][0:4]) }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <a href="{{ '/competitions/{}/matches/{}'.format(competition_id, match.info['id']) }}"
+                   class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-1">
+                            {{ match.info['date'][11:16] }}
+                        </div>
+                        <div class="col-4 text-right">
                             {{ match.home_team.info['name'] }}
                         </div>
 
                         <div class="col-2 text-center">
                             {% if match.info['status'] == 'scheduled' %}
-                            {{ match.info['date'][11:16] }}
-                            {% else %}
+                            <div style="color:red">
+                                scheduled
+                            </div>
+                            {% elif match.info['status'] == 'finished' %}
                             {{ match.home_team.team['goals'] }} : {{ match.away_team.team['goals'] }}
+                            {% else %}
+                            <div style="color:green">
+                                {{ match.home_team.team['goals'] }} : {{ match.away_team.team['goals'] }}
+                            </div>
                             {% endif %}
                         </div>
 
