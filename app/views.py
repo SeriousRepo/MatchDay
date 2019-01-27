@@ -1,9 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, request, redirect
 import math
 
 from app.views_utils.index import *
 from app.views_utils.competition import *
 from app.connector import Connector
+
 
 view = Blueprint('view', __name__)
 
@@ -106,3 +107,25 @@ def competition_match(competition_id, match_id):
     match_to_display = Match(match, home_team, away_team)
 
     return render_template('match.html', match=match_to_display, competition_id=competition_id)
+
+
+#@view.route('/login', methods=['POST'])
+#def login():
+#    form = request.form
+#
+#    return redirect('/')
+
+
+@view.route('/registration', methods=['GET', 'POST'])
+def registration():
+    if request.method == 'GET':
+        return render_template('registration.html')
+    if request.method == 'POST':
+        content = request.form
+        json_content = json.dumps(content)
+        connector = Connector()
+        try:
+            connector.send_post(json_content, 'registration/')
+        except:
+            return render_template('registration.html', error=True)
+        return redirect('/')

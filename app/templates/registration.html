@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+<head>
+    {% block head %}
+    {{ super() }}
+    <script src="static/validator.js"></script>
+    {% endblock %}
+</head>
+
+<body>
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Registration</h1>
+    </div>
+</div>
+
+<div class="container">
+    <form action="/registration" method="post" data-toggle="validator">
+        <div class="form-group">
+            <label for="email" class="sr-only">Email</label>
+            <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="username" class="sr-only">Email</label>
+            <input name="username" type="text" class="form-control" id="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="password" class="sr-only">Password</label>
+            <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword" class="sr-only">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password"
+                   data-match="#password" data-match-error="Passwords don't match">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {% if error == True %}
+        <div class="alert alert-danger" role="alert">
+            User already exist!
+        </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
+</body>
